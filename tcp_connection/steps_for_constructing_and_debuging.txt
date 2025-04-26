@@ -1,0 +1,20 @@
+prereq:
+	know how IPC works:
+		shared mem
+		pipes (named and ordinary)
+
+implementation:
+	create basic tcp connection on local device (this would be same as IPC)
+		check if it is working by sending a one line messege
+		test using loops
+
+	create a client.c file
+		it accepts an IP address of a server
+		returns the contents of index.html file
+	
+	using ports to connect to device as server (client and server scripts run on different devices)
+		send one line messege 
+		test using loops
+		check for security issues
+		
+		

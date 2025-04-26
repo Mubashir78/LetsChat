@@ -8,39 +8,31 @@
 #define MSG_LEN 1024
 #define NUM_THREADS 8
 #define CHUNK_SIZE (MSG_LEN/NUM_THREADS)
-
-enum Cipher{
-    Shift, 
-    Vegenere,
-    Permutation
-};
-
 typedef struct{
-    pthread_t thread;
+    
+    pthread_t thread_id;
     int 
         srt_ind,
         end_ind,
-        thread_id;
-} ThreadData;
+        thread_num;
 
+} thread_data;
 typedef struct{
     char* text;
     int* key;
-} default_arg_packet;
-
+} packet;
 typedef struct{
-    ThreadData* threads;
-    default_arg_packet data_packet;
-    enum cipher_call;
-    int counter;
-} wrapper;
+    thread_data info;
+    packet pkt;
+    void* cipher_function;
+} wrapper; 
 
-// wrapper function
-void* caller(void* arg);
-
-
+// managing functions
+void* thread_manager(packet, int, void*);
+void* wrapper_function(void* arg);
+void cipher_caller(packet, thread_data, void*);
 //cipher functions
 void shift(char* text, int shift_val, int start_ind, int end_ind);
-void vegenere(char text[], int key[]);
-void permutation(char text[], int key[], int keylen);
+void vegenere(char* text, int* key);
+// void permutation(char* text, int* key, int keylen);
 
